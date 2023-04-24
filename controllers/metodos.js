@@ -1,5 +1,20 @@
 const Product = require("../models/products");
 const Comentarios = require('../models/comentarios');
+const moment = require('moment');
+
+function hoy() {
+  const fecha = new Date();
+const year = fecha.getFullYear();
+const month = fecha.getMonth() + 1;
+const day = fecha.getDate();
+const hour = fecha.getHours();
+const minutes = fecha.getMinutes();
+const fechaYHora = `${day}-${month}-${year} ${hour}:${minutes}`;
+console.log(fechaYHora);
+const actual = moment(fechaYHora, 'D-M-YYYY HH:mm').toDate();
+console.log(typeof actual);
+return actual
+}
 
 const metodos = {
   general: (req, res) => {
@@ -66,9 +81,11 @@ const metodos = {
     GetComent();
   },
   PostComentarios: (req,res) => {
-    const { texto } = req.body;
+    const { texto,usuario } = req.body;
     const comentario = new Comentarios({
-      texto: texto
+      usuario:usuario,
+      texto: texto,
+      fecha: hoy()
     })
     async function guardComent() {
       await comentario.save()
@@ -78,6 +95,12 @@ const metodos = {
     }
     guardComent();
     res.send(comentario);
+  },
+  DeleteComentarios: (req,res) => {
+    const { _id } = req.body;
+    Comentarios.findOneAndDelete({_id:_id})
+      .catch(e => console.log(e))
+    res.send({mensage:'Eliminado exitoso'})
   }
 
 };

@@ -14,5 +14,6 @@ router.put('/articulo',metodos.PutArticulo);
 
 router.get('/comment',metodos.GetComentarios);
 router.post('/comment',metodos.PostComentarios);
+router.delete('/comment',metodos.DeleteComentarios);
 
 module.exports = router;

@@ -22,18 +22,19 @@ const minutes = fecha.getMinutes();
 const seconds = fecha.getSeconds();
 
 // Crear una cadena con la fecha y hora actual
-const fechaYHora = `${day}-${month}-${year} ${hour}:${minutes}:${seconds}`;
+const fechaYHora = `${day}-${month}-${year} ${hour}:${minutes}`;
 
 
 const Comentario = new Schema({
+    usuario:{
+        type:String,
+        default:'Fantasma'
+    },
     texto:{
         type:String,
         require:true
     },
-    fecha:{
-        type:Date,
-        default:Date.now
-    }
+    fecha:Date
 });
 
 
